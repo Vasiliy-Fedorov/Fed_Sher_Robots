@@ -8,6 +8,8 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 
@@ -57,16 +59,22 @@ public class MainTest {
     }
 
     @Test
-    void checkBox () throws InterruptedException {
+    void selectAllCheckBox () throws InterruptedException {
         WebDriverManager.chromedriver().setup();
 
         driver.findElement(By.xpath("//div[@class = 'card-body']/h5 [contains(text(), 'Elements')]")).click();
         driver.findElement(By.xpath("//span[contains(text(), 'Check Box')]")).click();
 
-        WebElement toggleHome = driver.findElement(By.xpath("//span[contains(text(), 'Home')]/../../button"));
-        Thread.sleep(5000);
-        toggleHome.click();
-        Thread.sleep(5000);
+//        WebElement toggleHome = driver.findElement(By.xpath("//span[contains(text(), 'Home')]/../../button"));
+//        Thread.sleep(5000);
+//        toggleHome.click();
+//        Thread.sleep(5000);
+        WebElement checkBoxHome = driver.findElement(By.xpath("//span[contains(text(), 'Home')]/../span[@class = 'rct-checkbox']"));
+        checkBoxHome.click();
+
+        List<WebElement> selectedList = driver.findElements(By.xpath("//div[@id = 'result']/span[@class = 'text-success']"));
+
+        Assert.assertEquals(selectedList.size(), 17);
 
     }
 }
