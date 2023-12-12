@@ -61,6 +61,7 @@ public class MainTest {
     @Test
     void selectAllCheckBox () throws InterruptedException {
         WebDriverManager.chromedriver().setup();
+        //В этом тесте проверяем, что при выделении чекбокса Home выделяются все чекбоксы в количестве 17 штук
 
         driver.findElement(By.xpath("//div[@class = 'card-body']/h5 [contains(text(), 'Elements')]")).click();
         driver.findElement(By.xpath("//span[contains(text(), 'Check Box')]")).click();
