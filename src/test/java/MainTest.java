@@ -22,7 +22,7 @@ public class MainTest {
         driver = new ChromeDriver();
         driver.manage().window().maximize();
 
-        driver.manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
+//        driver.manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
         driver.get("https://demoqa.com/");
     }
 
@@ -66,16 +66,37 @@ public class MainTest {
         driver.findElement(By.xpath("//div[@class = 'card-body']/h5 [contains(text(), 'Elements')]")).click();
         driver.findElement(By.xpath("//span[contains(text(), 'Check Box')]")).click();
 
-//        WebElement toggleHome = driver.findElement(By.xpath("//span[contains(text(), 'Home')]/../../button"));
-//        Thread.sleep(5000);
-//        toggleHome.click();
-//        Thread.sleep(5000);
         WebElement checkBoxHome = driver.findElement(By.xpath("//span[contains(text(), 'Home')]/../span[@class = 'rct-checkbox']"));
         checkBoxHome.click();
 
         List<WebElement> selectedList = driver.findElements(By.xpath("//div[@id = 'result']/span[@class = 'text-success']"));
-
+        Thread.sleep(5000);
         Assert.assertEquals(selectedList.size(), 17);
+    }
 
+    @Test
+    void selectOneCheckBox () throws InterruptedException {
+        WebDriverManager.chromedriver().setup();
+//        Тест проверяет выбор одного чекбокса - React
+
+        driver.findElement(By.xpath("//div[@class = 'card-body']/h5 [contains(text(), 'Elements')]")).click();
+        driver.findElement(By.xpath("//span[contains(text(), 'Check Box')]")).click();
+
+        WebElement toggleHome = driver.findElement(By.xpath("//span[contains(text(), 'Home')]/../../button"));
+        toggleHome.click();
+
+        WebElement toggleDocuments = driver.findElement(By.xpath("//span[contains(text(), 'Documents')]/../../button"));
+        toggleDocuments.click();
+
+        WebElement toggleWorkSpace = driver.findElement(By.xpath("//span[contains(text(), 'WorkSpace')]/../../button"));
+        toggleWorkSpace.click();
+
+        WebElement checkBoxReact = driver.findElement(By.xpath("//span[contains(text(), 'React')]/../span[@class = 'rct-checkbox']"));
+        checkBoxReact.click();
+
+        WebElement result = driver.findElement(By.xpath("//div[@id = 'result']/span[@class = 'text-success']"));
+        String expectedText = "react";
+
+        Assert.assertEquals(result.getText(), expectedText);
     }
 }
