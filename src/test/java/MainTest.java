@@ -45,13 +45,13 @@ public class MainTest {
             WebElement submit = driver.findElement(By.xpath("//button[@id = 'submit']"));
 
             fullName.sendKeys("Alien");
-            Thread.sleep(1000);
+
             email.sendKeys("123abc@tort.com");
-            Thread.sleep(1000);
+
             currentAddress.sendKeys("Spain");
             permanentAddress.sendKeys("Russia");
             submit.click();
-            Thread.sleep(1000);
+
             String actualUrl = driver.getCurrentUrl();
             String expectedUrl = "https://demoqa.com/text-box";
 
