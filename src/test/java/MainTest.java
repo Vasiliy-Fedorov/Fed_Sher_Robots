@@ -10,7 +10,6 @@ import org.testng.annotations.Test;
 
 
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 
 public class MainTest {
@@ -32,7 +31,7 @@ public class MainTest {
     }
 
     @Test
-    void textBox() throws InterruptedException {
+    void textBox() throws InterruptedException {// проверяем заполнение формы и её отправку
         WebDriverManager.chromedriver().setup();
 
             driver.findElement(By.xpath("//div[@class = 'card-body']/h5 [contains(text(), 'Elements')]")).click();
@@ -54,7 +53,7 @@ public class MainTest {
 
             String actualUrl = driver.getCurrentUrl();
             String expectedUrl = "https://demoqa.com/text-box";
-
+//TO DO переписать ассёрт
             Assert.assertEquals(actualUrl, expectedUrl);
     }
 
