@@ -10,6 +10,7 @@ import org.testng.annotations.Test;
 
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 
 public class MainTest {
@@ -21,7 +22,7 @@ public class MainTest {
         driver = new ChromeDriver();
         driver.manage().window().maximize();
 
-//        driver.manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
         driver.get("https://demoqa.com/");
     }
 
@@ -31,7 +32,9 @@ public class MainTest {
     }
 
     @Test
-    void textBox() throws InterruptedException {// проверяем заполнение формы и её отправку
+        // проверяем заполнение формы и её отправку
+    void textBox() throws InterruptedException {
+
         WebDriverManager.chromedriver().setup();
 
             driver.findElement(By.xpath("//div[@class = 'card-body']/h5 [contains(text(), 'Elements')]")).click();
@@ -44,23 +47,24 @@ public class MainTest {
             WebElement submit = driver.findElement(By.xpath("//button[@id = 'submit']"));
 
             fullName.sendKeys("Alien");
-
             email.sendKeys("123abc@tort.com");
-
             currentAddress.sendKeys("Spain");
             permanentAddress.sendKeys("Russia");
             submit.click();
 
-            String actualUrl = driver.getCurrentUrl();
-            String expectedUrl = "https://demoqa.com/text-box";
-//TO DO переписать ассёрт
-            Assert.assertEquals(actualUrl, expectedUrl);
+            List<WebElement> listValue = driver.findElements(By.xpath("//div[@id = 'output']"));
+            String strExpected = "Name:Alien\n" +
+                    "Email:123abc@tort.com\n" +
+                    "Current Address :Spain\n" +
+                    "Permananet Address :Russia";
+
+            Assert.assertEquals(listValue.get(0).getText(), strExpected);
     }
 
     @Test
+        // Проверяем, что при выделении чекбокса Home выделяются все чекбоксы в количестве 17 штук
     void selectAllCheckBox () throws InterruptedException {
         WebDriverManager.chromedriver().setup();
-        //В этом тесте проверяем, что при выделении чекбокса Home выделяются все чекбоксы в количестве 17 штук
 
         driver.findElement(By.xpath("//div[@class = 'card-body']/h5 [contains(text(), 'Elements')]")).click();
         driver.findElement(By.xpath("//span[contains(text(), 'Check Box')]")).click();
@@ -74,9 +78,9 @@ public class MainTest {
     }
 
     @Test
+        // Тест проверяет выбор одного чекбокса - React
     void selectOneCheckBox () throws InterruptedException {
         WebDriverManager.chromedriver().setup();
-//        Тест проверяет выбор одного чекбокса - React
 
         driver.findElement(By.xpath("//div[@class = 'card-body']/h5 [contains(text(), 'Elements')]")).click();
         driver.findElement(By.xpath("//span[contains(text(), 'Check Box')]")).click();
