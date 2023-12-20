@@ -102,4 +102,40 @@ public class MainTest {
 
         Assert.assertEquals(result.getText(), expectedText);
     }
+    @Test
+    // Проверка коллапс кнопок, что при нажатии на "+", аккордеон открывается
+    void collapseButton () throws InterruptedException {
+        WebDriverManager.chromedriver().setup();
+
+        driver.findElement(By.xpath("//div[@class = 'card-body']/h5 [contains(text(), 'Elements')]")).click();
+        driver.findElement(By.xpath("//span[contains(text(), 'Check Box')]")).click();
+
+        WebElement expandAll = driver.findElement(By.xpath("//button[@title = 'Expand all']"));
+        WebElement collapseAll = driver.findElement(By.xpath("//button[@title = 'Collapse all']"));
+
+        expandAll.click();
+
+        List<WebElement> result = driver.findElements(By.xpath("//li[@class = 'rct-node rct-node-parent rct-node-expanded']"));
+
+        Assert.assertEquals(result.size(), 6);
+    }
+
+    @Test
+    // Проверка коллапс кнопок, что при нажатии на "-", аккордеон закрывается.
+    void expandButton () throws InterruptedException {
+        WebDriverManager.chromedriver().setup();
+
+        driver.findElement(By.xpath("//div[@class = 'card-body']/h5 [contains(text(), 'Elements')]")).click();
+        driver.findElement(By.xpath("//span[contains(text(), 'Check Box')]")).click();
+
+        WebElement expandAll = driver.findElement(By.xpath("//button[@title = 'Expand all']"));
+        WebElement collapseAll = driver.findElement(By.xpath("//button[@title = 'Collapse all']"));
+
+        expandAll.click();
+        collapseAll.click();
+
+        List<WebElement> result = driver.findElements(By.xpath("//li[@class = 'rct-node rct-node-parent rct-node-collapsed']"));
+
+        Assert.assertEquals(result.size(), 1);
+    }
 }
